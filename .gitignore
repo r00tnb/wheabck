@@ -1,6 +1,6 @@
 .venv/
 .vscode
 .env
-
 *.pyc
 __pycache__/
+/public/*

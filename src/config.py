@@ -1,4 +1,5 @@
 import os
+import sys
 
 # src路径
 src_path = os.path.dirname(__file__)
@@ -8,6 +9,7 @@ root_path = os.path.dirname(src_path)
 
 # api路径
 api_path = os.path.join(src_path, 'api')
+sys.path.insert(0, api_path)
 
 # 插件路径
 plugins_path = os.path.join(root_path, 'plugins')

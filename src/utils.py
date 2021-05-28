@@ -3,6 +3,7 @@ import random
 import sys
 import importlib
 import os
+import traceback
 
 def random_str(length:int=8, words="1234567890abcdef")->str:
     '''生成随机字符串
@@ -13,6 +14,10 @@ def random_str(length:int=8, words="1234567890abcdef")->str:
         ret += words[index]
     return ret
 
+def print_traceback():
+    '''输出堆栈信息
+    '''
+    traceback.print_exc()
 
 def load_package(path: str):
     '''加载指定目录处的Python包

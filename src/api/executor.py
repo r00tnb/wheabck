@@ -74,15 +74,16 @@ class CodeExecutor(metaclass=abc.ABCMeta):
     def connect(self)->ServerInfo:
         '''测试代码执行器是否可用，成功返回服务端基本信息，失败返回None
 
-        :returns: ServerInfo
+        :returns: ServerInfo|None
         '''
         pass
 
     @abc.abstractmethod
-    def eval(self, payload:Payload)->EvalResult:
+    def eval(self, payload:Payload, options: dict={})->EvalResult:
         '''在远程服务器执行payload，并返回执行结果
 
         :param payload: Payload实例
+        :param options: 额外的配置参数，由插件实现如何使用
         :returns: 执行结果
         '''
         pass

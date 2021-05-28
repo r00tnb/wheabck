@@ -1,5 +1,7 @@
 from api.session import Session, SessionType, ServerInfo
 from api.executor import CodeExecutor, CommandExecutor
+from api.maintype import SessionNotSupportedException
+import src.utils as utils
 from .pluginmanager import plugin_manager
 
 class SessionConfig:
@@ -16,6 +18,7 @@ class SessionAdapter(Session):
     '''
     def __init__(self, config:SessionConfig):
         self.raw_config = config
+        self.__plugin_instance_map = {} # 已加载的插件实例字典
 
         self.__type = config.session_type
         self.__server_info = None
@@ -38,3 +41,22 @@ class SessionAdapter(Session):
     @property
     def command_executor(self)->CommandExecutor:
         return self.__command_executor
+
+    def load_plugins(self)-> int:
+        '''从插件管理器中加载插件实例，返回加载成功的插件数量
+
+        :returns: int, 加载成功的插件数量
+        '''
+        ret = 0
+        for plugin_class in plugin_manager.plugins_list:
+            try:
+                plugin = plugin_class(self)
+            except SessionNotSupportedException:
+                pass
+            except:
+                utils.print_traceback()
+            else:
+                self.__plugin_instance_map[utils.random_str()] = plugin
+                ret += 1
+
+        return ret

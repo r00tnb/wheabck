@@ -37,3 +37,7 @@ class SessionType(enum.Enum):
         :returns: str
         '''
         return str(self.value)
+
+class SessionNotSupportedException(Exception):
+    '''session不支持异常，一般在插件实例化失败时抛出
+    '''

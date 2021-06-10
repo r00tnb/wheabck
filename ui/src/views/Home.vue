@@ -79,7 +79,9 @@ export default {
         name: "Test123",
         component: About,
         meta:{
-          title: "sdfsf"
+          title: "sdfsf",
+          useIframe:true,
+          src: "http://localhost:8000/index.html"
         }
       });
       router.addRoute("Home", {

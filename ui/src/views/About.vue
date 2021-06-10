@@ -4,5 +4,13 @@
   </div>
 </template>
 <script lang="ts">
-export default {}
+import api, {ResponseData, MessageHandler} from '../api'
+
+export default {
+  mounted(){
+    api.send('test', {ok:123}, (data)=>{
+      console.log(data)
+    })
+  }
+}
 </script>

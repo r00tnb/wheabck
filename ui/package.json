@@ -11,6 +11,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "element-plus": "^1.0.2-beta.41",
+    "mockjs": "^1.1.0",
     "socket.io-client": "^4.1.1",
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0",
@@ -19,6 +20,7 @@
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@types/mockjs": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",

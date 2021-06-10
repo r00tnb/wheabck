@@ -8,6 +8,8 @@ import zh from './i18n/zh'
 import en from './i18n/en'
 import 'element-plus/lib/theme-chalk/index.css'
 
+import './mock'
+
 const i18n = createI18n({
     locale: 'zh',
     messages: { zh, en }

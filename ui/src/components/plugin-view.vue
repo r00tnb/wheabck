@@ -1,10 +1,7 @@
 <template>
-  <div v-if="useIframe">
-    <iframe ref="frame" :src="src"></iframe>
-  </div>
-  <div v-else>
+  <div class="plugin-view">
     <keep-alive>
-      <component :is="comp"></component>
+    <iframe ref="frame" :src="src"></iframe>
     </keep-alive>
   </div>
 </template>
@@ -15,17 +12,12 @@ import { ref, onMounted } from "vue";
 
 export default {
   props: {
-    useIframe: {
-      type: Boolean,
-      default: false
-    },
-    src: String, //如果使用iframe，则表示url地址,否则无意义
-    comp: Object //如果不使用iframe，则表示一个组件对象
+    src: String //iframe的url地址
   },
-  setup(props:any) {
+  setup(props: any) {
     const frame = ref(new Object());
     onMounted(() => {
-      if (props.useIframe) {
+      if (props.src !== undefined) {
         const f = frame.value as HTMLIFrameElement;
         if (f.contentWindow === null) return;
         const transfer = new MsgTransfer(f.contentWindow, props.src);
@@ -41,3 +33,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.plugin-view, .plugin-view>iframe {
+  height: 100%;
+  width: 100%;
+}
+</style>

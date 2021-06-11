@@ -15,7 +15,7 @@
           <router-view v-slot="{ Component }">
             <transition name="move" mode="out-in">
               <keep-alive>
-                <plugin-view :useIframe="$route.meta.useIframe" :src="$route.meta.src" :comp="Component" />
+                <component :is="Component" :src="$route.meta.src" />
               </keep-alive>
             </transition>
           </router-view>
@@ -77,11 +77,10 @@ export default {
       router.addRoute("Home", {
         path: "/test123",
         name: "Test123",
-        component: About,
+        component: PluginView,
         meta:{
           title: "sdfsf",
-          useIframe:true,
-          src: "http://localhost:8000/index.html"
+          src: "https://localhost:8000/index.html"
         }
       });
       router.addRoute("Home", {

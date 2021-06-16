@@ -4,6 +4,7 @@ import sys
 import importlib
 import os
 import traceback
+from typing import NoReturn
 
 def random_str(length:int=8, words="1234567890abcdef")->str:
     '''生成随机字符串
@@ -14,12 +15,12 @@ def random_str(length:int=8, words="1234567890abcdef")->str:
         ret += words[index]
     return ret
 
-def print_traceback():
+def print_traceback()->NoReturn:
     '''输出堆栈信息
     '''
     traceback.print_exc()
 
-def load_package(path: str):
+def load_package(path: str)->NoReturn:
     '''加载指定目录处的Python包
     '''
     if not os.path.isdir(path) or os.path.isfile(os.path.join(path, '__init__.py')):

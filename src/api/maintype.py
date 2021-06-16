@@ -38,6 +38,10 @@ class SessionType(enum.Enum):
         '''
         return str(self.value)
 
-class SessionNotSupportedException(Exception):
-    '''session不支持异常，一般在插件实例化失败时抛出
+class ServerInfo:
+    '''用于描述远程服务器的基本信息
     '''
+
+    def __init__(self):
+        self.ostype:OSType
+        

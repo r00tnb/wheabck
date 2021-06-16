@@ -1,8 +1,9 @@
 from api.session import Session, SessionType, ServerInfo
 from api.executor import CodeExecutor, CommandExecutor
-from api.maintype import SessionNotSupportedException
+from api.plugin import Plugin
 import src.utils as utils
 from .pluginmanager import plugin_manager
+from typing import Dict
 
 class SessionConfig:
     '''session配置类
@@ -18,7 +19,7 @@ class SessionAdapter(Session):
     '''
     def __init__(self, config:SessionConfig):
         self.raw_config = config
-        self.__plugin_instance_map = {} # 已加载的插件实例字典
+        self.__plugin_instance_map:Dict[str, Plugin] = {} # 已加载的插件实例字典
 
         self.__type = config.session_type
         self.__server_info = None
@@ -49,13 +50,8 @@ class SessionAdapter(Session):
         '''
         ret = 0
         for plugin_class in plugin_manager.plugins_list:
-            try:
-                plugin = plugin_class(self)
-            except SessionNotSupportedException:
-                pass
-            except:
-                utils.print_traceback()
-            else:
+            plugin = plugin_class()
+            if plugin.is_supported(self):
                 self.__plugin_instance_map[utils.random_str()] = plugin
                 ret += 1
 

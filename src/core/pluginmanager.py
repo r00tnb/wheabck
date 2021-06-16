@@ -5,6 +5,7 @@ from src.core.helperadapter import helper
 import src.utils as utils
 import src.config as config
 import os
+from typing import Dict, Type, Tuple
 
 __all__ = ['plugin_manager']
 
@@ -13,9 +14,9 @@ class PluginManager:
     '''
 
     def __init__(self):
-        self.__plugin_map = {} # 插件字典，键为ID，值为Plugin派生类
+        self.__plugin_map:Dict[str, Type[Plugin]] = {} # 插件字典，键为ID，值为Plugin派生类
 
-    def load_from_plugin_dir(self)->tuple:
+    def load_from_plugin_dir(self)->Tuple[int, int]:
         '''加载插件目录下的所有插件
 
         :returns: (int, int)，返回(加载成功的数量, 加载失败的数量)
@@ -77,7 +78,7 @@ class PluginManager:
         return None
 
     @property
-    def plugins_list(self)->tuple:
+    def plugins_list(self)->Tuple[Type[Plugin]]:
         return tuple(self.__plugin_map.values())
 
 

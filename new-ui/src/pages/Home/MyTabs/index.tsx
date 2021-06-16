@@ -9,7 +9,7 @@ export interface TabItem {
     key:string,
     title:string,
     route:RouteItem,
-    closable?:boolean
+    closable?:boolean, //是否可关闭
 }
 
 interface propsType {

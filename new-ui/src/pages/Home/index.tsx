@@ -42,10 +42,16 @@ export default function Home(props: RouteComponentProps) {
   const [menus] = useState<MenuItem[]>(defaultMenus)
   const { location } = props
 
-  const addTab = (path: string, title: string) => {//根据path指定的路由添加一个标签页，若指定路由不在路由表则不添加
+  /**
+   * 根据path指定的路由添加一个标签页，若指定路由不在路由表则不添加.
+   * @param path 标签页对应的路由
+   * @param title 标签页标题
+   * @param unique 若为真则当已存在该路由的标签时不会添加新的标签页
+   */
+  const addTab = (path: string, title: string, unique=false) => {
     const routeItem = routeTable.find(path)
     if (routeItem) {
-      const tab = tabs.find(item => item.route.path === path && item.closable === false)//若tabs中存在路由相等且无法关闭的标签则不再生成新的
+      const tab = tabs.find(item => item.route.path === path && (item.closable === false||unique))//若tabs中存在路由相等且无法关闭的标签则不再生成新的
       let key = randomStr()
       if (!tab) {
         setTabs([...tabs, {
@@ -58,13 +64,15 @@ export default function Home(props: RouteComponentProps) {
       setActiveTabKey(key)
     }
   }
+
   const onMenuClick = (item: MenuItem) => {
     if (item.to)
-      addTab(item.to, item.title)
+      addTab(item.to, item.title, true)
   }
 
   useEffect(() => {//挂载后判断当前路由是否在设定的路由表中，是则添加一个标签页并跳到该标签
-    addTab(location.pathname, "sdfasdf")
+    addTab(location.pathname, "unknown")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

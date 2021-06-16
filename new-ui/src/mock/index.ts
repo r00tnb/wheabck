@@ -12,7 +12,7 @@ export default Mock.mock(api.getUrlByMsg("get-webshell-connections"),  {
             url:"http://sdfsdf.com/1.php",
             ip:"127.0.0.1",
             note:"test123",
-            key:"123"
+            id:"123"
         },
         {
             createDatetime:Date.now()+300,
@@ -20,7 +20,7 @@ export default Mock.mock(api.getUrlByMsg("get-webshell-connections"),  {
             url:"http://sdfsdf.com/1.aspx",
             ip:"127.0.0.1",
             note:"nbnbnb",
-            key:"321"
+            id:"321"
         }
     ]
 })

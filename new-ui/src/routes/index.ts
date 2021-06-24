@@ -4,6 +4,7 @@
 import { ComponentType } from 'react'
 import Test from '../components/Test'
 import ManageConnection from '../pages/ManageConnection'
+import TestPage from '../pages/test'
 
 
 export interface RouteItem {
@@ -23,6 +24,10 @@ const defaultRoutes: RouteItem[] = [
     {
         path: "/dashboard", component: Test
     },
+    {
+        path:"/testpage",
+        component:TestPage
+    }
 ]
 
 export class RouteTable {

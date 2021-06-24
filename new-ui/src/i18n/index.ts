@@ -16,7 +16,7 @@ intl.init({
  * @returns 返回指定键对应的值
  */
 export function t(key:string):string{
-    const result = intl.get(key)
+    const result = ''//intl.get(key)
     return result===''?key:result
 } 
 

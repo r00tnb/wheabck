@@ -16,3 +16,10 @@ plugins_path = os.path.join(root_path, 'plugins')
 
 # 前端静态根目录
 static_path = os.path.join(root_path, 'public')
+
+#########################################################
+# 数据库相关
+#########################################################
+# 数据库路径
+db_path = os.path.join(root_path, 'wheabck.db')
+

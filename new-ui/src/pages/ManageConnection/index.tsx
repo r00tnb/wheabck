@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactComponentElement, useState } from "react";
 import { Table, Input, Button, Space, Popconfirm, Modal, Form } from "antd"
 import { EditOutlined, DeleteOutlined, PlayCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { t } from "../../i18n";
@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import api from '../../api'
 import ConnectionRecordView from './ConnectionRecordView'
 import { IConnectionItem, IConnectionRecord } from "../../typing/plugin";
+import { useRef } from "react";
 
 interface TableConnectionItem extends IConnectionItem {
     key?: string //为了表格中使用
@@ -50,7 +51,7 @@ export default function ManageConnection() {
     }
     function createSelected() { }
     function editConnection(record: TableConnectionItem) {
-
+        
     }
 
     return (
@@ -101,7 +102,7 @@ export default function ManageConnection() {
                 url:"http://xxx.com/1.php",
                 note:"dsfa",
                 webshellType:"JSP",
-                codeExecutorID:"sdfsdf",
+                codeExecutorID:"123",
                 config:{
                     test123:'nbnbnbnbnbnb'
                 }

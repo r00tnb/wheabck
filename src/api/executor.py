@@ -1,4 +1,5 @@
 import abc
+from typing import Any, Dict, List, Union
 from .maintype import SessionType, ServerInfo
 from .staticui import StaticUI
 
@@ -56,27 +57,32 @@ class CodeExecutor(StaticUI, metaclass=abc.ABCMeta):
             1.该页面一般情况下无需向后台交互，只用于信息收集
             2.页面需监听来自上层窗口发来的submit-config消息，并在消息来到时将收集的信息以json数据的格式返回到上层窗口
             3.之后该页面任务完成，
-        '''
-
-    @abc.abstractproperty
-    def supported_session_type(self)->SessionType:
-        '''返回执行器支持的session类型
+        
+        :returns: 页面的相对url地址
         '''
 
     @abc.abstractmethod
-    def connect(self)->ServerInfo:
-        '''测试代码执行器是否可用，成功返回服务端基本信息，失败返回None
+    def get_server_info(self)->ServerInfo:
+        '''获取远程服务器基本信息，成功返回服务端基本信息，失败返回None
 
         :returns: ServerInfo|None
         '''
 
     @abc.abstractmethod
-    def eval(self, payload:Payload, options: dict={})->EvalResult:
-        '''在远程服务器执行payload，并返回执行结果
+    def generate(self, config: Dict[str, Any]={}) -> bytes:
+        '''生成webshell服务端文件
 
-        :param payload: Payload实例
-        :param options: 额外的配置参数，由插件实现如何使用
-        :returns: 执行结果
+        :params config: 若webshell需要根据参数来配置，可通过该参数传入
+        :returns: 返回最终生成的webshell字节流
+        '''
+
+    @abc.abstractmethod
+    def eval(self, payload: bytes, timeout: float) -> Union[bytes, None]:
+        '''向目标URL发送payload执行请求并获取执行结果
+
+        :params payload: payload的字节流
+        :params timeout: 本次payload的执行中请求的超时时间，为0时则无限等待（这是一个约定，实现该方法时应该实现此特性）
+        :returns: 返回payload在目标上的执行结果,失败则返回None
         '''
 
 class CommandExecutor(metaclass=abc.ABCMeta):
@@ -84,9 +90,9 @@ class CommandExecutor(metaclass=abc.ABCMeta):
     '''
 
     @abc.abstractmethod
-    def exec(self, cmd:str)->str:
+    def exec(self, cmd:bytes)->Union[bytes, None]:
         '''在远程服务器执行命令并返回命令执行结果
 
-        :param cmd: 合法的命令字符串
-        :returns: str, 命令执行结果
+        :param cmd: 合法的命令字节流
+        :returns: 命令执行结果， 失败返回None
         '''
